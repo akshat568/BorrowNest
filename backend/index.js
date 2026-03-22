@@ -14,24 +14,9 @@ require("dotenv").config();
 
 const app = express();
 
-// CORS — production-safe: reads allowed origins from CORS_ORIGIN env var
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",")
-  : ["http://localhost:8080"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (mobile apps, curl, server-to-server)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "*"
+})); 
 
 // Middlewares
 app.use(express.json());
